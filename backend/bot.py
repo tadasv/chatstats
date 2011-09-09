@@ -28,16 +28,14 @@ def handleMessage(conn, message):
 
     print 'user %s said: %s' % (user, text)
 
+    # Make sure the speaker is listed in the about collection.
     about_coll = db.about
+    speakers = about_coll.findOne({'_id': 'speakers'}) or {'_id': 'speakers'}
+    l = speakers.get('list', [])
+    if user not in l:
+        speakers['list'] = l + [user]
+        about_coll.save(speakers)
 
-    words = len(text.split())
-
-    doc = {
-        'speaker' : user,
-        'words' : words,
-    }
-    
-    about_coll.update({'speaker' : user}, doc, upsert=True)
 
 
 ############################# bot logic stop #####################################
