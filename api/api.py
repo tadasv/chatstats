@@ -21,6 +21,7 @@ class ChatStatsApi(object):
         result = [
             {'speaker' : 'tadas'}
         ]
+	return {'top_speakers' : result}
 
     top_speakers.exposed = True
 
