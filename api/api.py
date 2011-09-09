@@ -1,5 +1,6 @@
 import cherrypy
 import json
+import mongo
 
 
 def json_wrap(func):
@@ -12,8 +13,13 @@ def json_wrap(func):
 class ChatStatsApi(object):
 
     @json_wrap
-    def top_speakers(self, chatroom, speaker):
-        return {'username' : 1231123, 'test' : 'asdfasdf'}
+    def top_speakers(self, chatroom):
+        db = mongo.get_db(chatroom)
+
+        result = [
+            {'speaker' : 'tadas'}
+        ]
+
     top_speakers.exposed = True
 
 
