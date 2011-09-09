@@ -24,9 +24,42 @@ def handleMessage(conn, message):
         return
 
     user = m.group(1) or m.group(3)
-    text = m.group(2) or m.group(4)
+    if not user:
+        return
+
+    text = m.group(2) or m.group(4) or ''
+    words = text.split(' ')
 
     print 'user %s said: %s' % (user, text)
+
+    # Make sure the speaker is listed in the about collection.
+    about_coll = db.about
+    speakers = about_coll.find_one({'_id': 'speakers'}) or {'_id': 'speakers'}
+    l = speakers.get('list', [])
+    if user not in l:
+        speakers['list'] = l + [user]
+        about_coll.save(speakers)
+
+    # Update speaker stats.
+    speakers_coll = db.speakers
+
+    # Init a record if it's not there.
+    if not speakers_coll.find_one({'_id': user}):
+        speakers_coll.save({
+                            '_id': user,
+                            'count': 0,
+                            'words': 0,
+                            'chars': 0,
+                           })
+
+    update = {
+              '$inc': {
+                       'count': 1,
+                       'words': len(words),
+                       'chars': len(text),
+                      },
+             }
+    speakers_coll.update({'_id': user}, update)
 
 
 ############################# bot logic stop #####################################

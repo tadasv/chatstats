@@ -1,0 +1,74 @@
+body {
+    margin: auto;
+    width: 1024px;
+    background: #999;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+#header {
+    height: 30px;
+    background: #999;
+/*    background: #999 url('http://static2.chartbeat.com/images/marketing/ui/bg-texture.png');*/
+}
+
+#title {
+    color: #FFD700;
+}
+
+.container_12 {
+    background: white;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+#grid-header {
+    background:#fff;
+    padding-left:20px;
+    padding:0;
+    margin:0 20px;
+}
+
+.pie_chart {
+    margin: 0 auto;
+}
+.chart {
+    text-align: center;
+    border: 1px solid #FFD700;
+    padding: 0px;
+    margin: 0px 5px;
+    height: 400px;
+}
+
+.clearfix{
+        text-align:left;
+    }
+
+.count{
+        display:inline-block;
+        float:right;
+        text-align:right;
+        width:35px;
+    }
+.name{
+        display:inline-block;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        whitespace:nowrap;
+        width:160px;
+        text-align:left;
+    }
+
+.table {
+    text-align: left;
+    border: 1px dotted #CCC;
+    padding: 0px;
+    margin: 0px 5px;
+}
+
+#separator {
+    border-bottom: 1px dotted #CCC;
+}
