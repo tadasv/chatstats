@@ -1,8 +1,9 @@
 <html>
     <body>
         <div id="placeholder" style="width:600px;height:300px"></div>
+        <div id="graph2" style="width:600px;height:300px"></div>
     </body>
-    <script src="../js/jquery/jquery.js" type="text/javascript"></script>
+    <script src="../js/jquery/jquery-1.6.3.js" type="text/javascript"></script>
     <script src="../js/jquery/flot/jquery.flot.js" type="text/javascript"></script>
     <script src="../js/jquery/jquery.flot.pie.js" type="text/javascript"></script>
 
@@ -30,17 +31,17 @@ var testData = {
     "data" : { "af" : 23, "hw" : 44, "ta" : 32}
 };
 
-var pieData = [
-    {label: "name1", data : 12},
-    {label: "name2", data : 15},
-    {label: "name3", data : 18},
-    {label: "name4", data : 21},
-    {label: "name5", data : 24},
-    {label: "name6", data : 27},
-];
 
 var sampleData = {
         pieData : [
+            {label: "name1", data : 12},
+            {label: "name2", data : 15},
+            {label: "name3", data : 18},
+            {label: "name4", data : 21},
+            {label: "name5", data : 24},
+            {label: "name6", data : 27}
+        ],
+        barData : [
             {label: "name1", data : 12},
             {label: "name2", data : 15},
             {label: "name3", data : 18},
@@ -57,7 +58,7 @@ $(function () {
     var updateInterval = 4000; //4 second updates
 
     //options for flot
-    var options = {
+    var pieOptions = {
         series : { pie: {show:true,
                                        radius: 1,
                                        label : {show:true,
@@ -65,14 +66,21 @@ $(function () {
         legend : {show:false}
     };
 
+    var barOptions = {
+        series: {
+                bars: { show: bars, barWidth: 0.6 }
+            }
+    }
+
     /*
      * End Settings
      */
 
-    function getData(){
+    function getData(graphType){
         //JSON retrieval
         //dataToPlot = //interpretation of Json
-        //will want to iterate over api calls and construct a large list of all 3
+        //will want to iterate over api calls and construct a large list of all 3?
+        //assuming data is pre-sorted
 
         //temp test
         /*
@@ -91,11 +99,17 @@ $(function () {
         */
         console.log(sampleData.pieData);
 
-        return sampleData.pieData;
+        if(graphType == "pie"){
+            return sampleData.pieData;
+        }
+
+        if(graphType == "bar"){
+            return sampleData.barData;
+        }
     }
 
     function update(){
-        plot.setData(pieData);
+        plot.setData(getData());
         //plot.setupGrid();
         plot.draw()
         console.log("update");
@@ -106,8 +120,10 @@ $(function () {
     //update();
     getData();
     console.log("asdf");
-    var plot = $.plot($("#placeholder"), getData(), options);
-    plot.draw();
+    var plot1 = $.plot($("#placeholder"), getData("pie"), pieOptions);
+    var plot2 = $.plot($("#graph2"), getData("bar"), barOptions);
+    plot1.draw();
+    plot2.draw();
     update();
 
     });
