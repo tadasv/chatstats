@@ -29,7 +29,7 @@ class ChatStatsApi(object):
 	if not doc:
 	    return {'list_speakers' : []}
         else:
-	    return {'list_speakers' : doc['speakers']}
+	    return {'list_speakers' : doc['list']}
 	
 
     @json_wrap
