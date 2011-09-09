@@ -1,7 +1,9 @@
+#!/usr/bin/python
+
 import cherrypy
 import json
 import mongo
-
+import os.path
 
 def json_wrap(func):
     def _decorated(*args, **kwargs):
@@ -19,13 +21,14 @@ class ChatStatsApi(object):
         result = [
             {'speaker' : 'tadas'}
         ]
+	return {'top_speakers' : result}
 
     top_speakers.exposed = True
 
 
 def start():
-    cherrypy.quickstart(ChatStatsApi())
-
+    conf = os.path.join(os.path.dirname(__file__), 'server.conf')
+    cherrypy.quickstart(ChatStatsApi(), config=conf)
 
 if __name__ == '__main__':
     start()
