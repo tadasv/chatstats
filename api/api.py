@@ -36,7 +36,7 @@ class ChatStatsApi(object):
     @json_wrap
     def top_speakers(self, chatroom, **kwargs):
         db = mongo.get_db(chatroom)
-        docs = db.speakers.find(sort=('count', pymongo.DESCENDING) limit=15)
+        docs = db.speakers.find(sort=('count', pymongo.DESCENDING), limit=15)
 
         result = []
         for d in docs:
