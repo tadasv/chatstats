@@ -30,7 +30,7 @@ def handleMessage(conn, message):
 
     # Make sure the speaker is listed in the about collection.
     about_coll = db.about
-    speakers = about_coll.findOne({'_id': 'speakers'}) or {'_id': 'speakers'}
+    speakers = about_coll.find_one({'_id': 'speakers'}) or {'_id': 'speakers'}
     l = speakers.get('list', [])
     if user not in l:
         speakers['list'] = l + [user]
