@@ -21,7 +21,7 @@ def json_wrap(func):
 class ChatStatsApi(object):
 
     @json_wrap
-    def top_speakers(self, chatroom):
+    def top_speakers(self, chatroom, **kwargs):
         db = mongo.get_db(chatroom)
 	about = db.about
 
