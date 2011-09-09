@@ -11,6 +11,10 @@ import sys
 import xmpp
 import re
 import logging
+import mongo
+
+db = mongo.get_db('chatstats')
+
 
 def handleMessage(conn, message):
     body = message.getBody()
