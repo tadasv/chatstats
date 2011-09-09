@@ -28,6 +28,17 @@ def handleMessage(conn, message):
 
     print 'user %s said: %s' % (user, text)
 
+    about_coll = db.about
+
+    words = len(text.split())
+
+    doc = {
+        'speaker' : user,
+        'words' : words,
+    }
+    
+    about_coll.update({'speaker' : user}, doc, upsert=True)
+
 
 ############################# bot logic stop #####################################
 
