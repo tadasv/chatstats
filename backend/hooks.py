@@ -30,7 +30,7 @@ class Hooks(object):
 
 def start():
     conf = os.path.join(os.path.dirname(__file__), 'server.conf')
-    cherrypy.start(Hooks(), config=conf)
+    cherrypy.quickstart(Hooks(), config=conf)
 
 if __name__ == '__main__':
     start()

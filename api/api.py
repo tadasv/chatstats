@@ -28,7 +28,7 @@ class ChatStatsApi(object):
 
 def start():
     conf = os.path.join(os.path.dirname(__file__), 'server.conf')
-    cherrypy.start(ChatStatsApi(), config=conf)
+    cherrypy.quickstart(ChatStatsApi(), config=conf)
 
 if __name__ == '__main__':
     start()
