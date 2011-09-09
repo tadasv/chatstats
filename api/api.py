@@ -8,8 +8,14 @@ import os.path
 def json_wrap(func):
     def _decorated(*args, **kwargs):
         body = func(*args, **kwargs)
-        cherrypy.response.headers['Content-Type'] = 'application/json'
-        return json.dumps(body)
+
+        jsonp = kwargs.get('jsonp', None)
+        if jsonp:
+            cherrypy.response.headers['Content-Type'] = 'text/javascript'
+            return '%s(%s)' % (jsonp, json.dumps(body))
+        else:
+            cherrypy.response.headers['Content-Type'] = 'application/json'
+            return json.dumps(body)
     return _decorated
 
 class ChatStatsApi(object):
