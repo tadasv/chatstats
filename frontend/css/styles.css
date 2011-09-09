@@ -37,7 +37,7 @@ body {
 }
 .chart {
     text-align: center;
-    border: 1px solid #FFD700;
+    border: 1px solid gray;
     padding: 0px;
     margin: 0px 5px;
     height: 400px;
@@ -51,7 +51,7 @@ body {
         display:inline-block;
         float:right;
         text-align:right;
-        width:35px;
+        width:60px;
     }
 .name{
         display:inline-block;
@@ -62,11 +62,18 @@ body {
         text-align:left;
     }
 
+#last_table {
+    border-right: 0px;
+}
 .table {
     text-align: left;
-    border: 1px dotted #CCC;
     padding: 0px;
     margin: 0px 5px;
+    border-right: 1px dotted gray;
+}
+
+.table h3{
+    padding-left: 35px;
 }
 
 #separator {
