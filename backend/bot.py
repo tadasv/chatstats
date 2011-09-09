@@ -39,8 +39,8 @@ def handleMessage(conn, message):
     # Update message count.
     counts_coll = db.counts
     if not counts_coll.find_one({'_id': user}):
-        counts_coll.save({'_id': user, 'counts': 0})
-    counts_coll.update({'_id': user}, {'$inc': {'counts': 1}})
+        counts_coll.save({'_id': user, 'count': 0})
+    counts_coll.update({'_id': user}, {'$inc': {'count': 1}})
 
 
 ############################# bot logic stop #####################################
