@@ -27,7 +27,7 @@ class Hooks(object):
 
 
 def start():
-    cherrypy.quickstart(ChatStatsApi())
+    cherrypy.quickstart(Hooks())
 
 
 if __name__ == '__main__':
