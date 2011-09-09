@@ -36,6 +36,11 @@ def handleMessage(conn, message):
         speakers['list'] = l + [user]
         about_coll.save(speakers)
 
+    # Update message count.
+    counts_coll = db.counts
+    if not counts_coll.find_one({'_id': user}):
+        counts_coll.save({'_id': user, 'counts': 0})
+    counts_coll.update({'_id': user}, {'$inc': {'counts': 1}})
 
 
 ############################# bot logic stop #####################################
