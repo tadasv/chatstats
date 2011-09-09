@@ -9,13 +9,13 @@
 
 <script>
     /*
- * -Get data from MongoDB
- * -Turn into flot-friendly data
+ * -get data from mongodb
+ * -turn into flot-friendly data
  * -plot that shit
  *
  */
 /*
-var testData = {
+var testdata = {
     "speakersnames" : ["af", "hf", "ak", "ll"],
     "speakerstats" : [
     { "name": "af", "stats" : {"vb" : 14, "total": 139, "rt": 71} },
@@ -28,8 +28,8 @@ var testData = {
 
 
 
-var sampleData = {
-        pieData : [
+var sampledata = {
+        piedata : [
             {label: "name1", data : 12},
             {label: "name2", data : 15},
             {label: "name3", data : 18},
@@ -37,7 +37,7 @@ var sampleData = {
             {label: "name5", data : 24},
             {label: "name6", data : 27}
         ],
-        barData : [
+        bardata : [
             {label: "name1", data : 12},
             {label: "name2", data : 15},
             {label: "name3", data : 18},
@@ -49,12 +49,12 @@ var sampleData = {
 
 $(function () {
     /*
-     * Settings
+     * settings
      */
-    var updateInterval = 4000; //4 second updates
+    var updateinterval = 4000; //4 second updates
 
     //options for flot
-    var pieOptions = {
+    var pieoptions = {
         series : { pie: {show:true,
                                        radius: 1,
                                        label : {show:true,
@@ -62,67 +62,70 @@ $(function () {
         legend : {show:false}
     };
 
-    var barOptions = {
+    var baroptions = {
         series: {
-                bars: { show: true, barWidth: 0.6 }
+                bars: { show: true, barwidth: 0.6 }
             }
     }
 
     /*
-     * End Settings
+     * end settings
      */
 
-    function getData(graphType){
-        //JSON retrieval
-        //dataToPlot = //interpretation of Json
-        //will want to iterate over api calls and construct a large list of all 3?
-        //assuming data is pre-sorted
+    function getdata(graphtype){
+        //json retrieval
 
-        //temp test
-        /*
-        var flotData = [];
-        console.log("getData");
-        console.log(testData);
-        console.log(testData.dataName);
-        console.log(testData.data);
-        for( var key in testData.data ){
-            var name = key;
-            var value = testData.data[key];
-            console.log(name, value);
-            flotData.push([name, value])
-        }
-        console.log(flotData);
-        */
-        console.log(sampleData.pieData);
+        $.ajax({
+            url:  "http://ec2-184-72-144-233.compute-1.amazonaws.com/api/top_speakers/?chatroom=chatstats",
+            //url: "data.json",
+            dataType: 'jsonp',
+            jsonpCallback: "foo",
+            jsonp: "jsonp",
+            success: function(data){
+                console.log(data);
+                console.log(data.top_speakers);
+                for ( obj in data.top_speakers){
+                    console.log(data.top_speakers[obj]);
 
-        if(graphType == "pie"){
-            return sampleData.pieData;
-        }
+                }
 
-        if(graphType == "bar"){
-            return sampleData.barData;
-        }
+                /*
+                if(graphtype == "pie"){
+                    return sampledata.piedata;
+                }
+
+                if(graphtype == "bar"){
+                    return sampledata.bardata;
+                }
+                */
+
+
+            }
+        });
+
     }
 
     function update(){
-        plot1.setData(getData("pie"));
-        plot2.setData(getData("bar"));
-        //plot.setupGrid();
+        plot1.setdata(getdata("pie"));
+        plot2.setdata(getdata("bar"));
+        //plot.setupgrid();
         plot1.draw()
         plot2.draw()
         console.log("update");
 
-        setTimeout(update, updateInterval);
+        settimeout(update, updateinterval);
     }
 
     //update();
-    getData();
+    getdata();
     console.log("asdf");
-    var plot1 = $.plot($("#placeholder"), getData("pie"), pieOptions);
-    var plot2 = $.plot($("#graph2"), getData("bar"), barOptions);
+    /*
+    var plot1 = $.plot($("#placeholder"), getdata("pie"), pieoptions);
+    var plot2 = $.plot($("#graph2"), getdata("bar"), baroptions);
     plot1.draw();
     plot2.draw();
     update();
+    */
 
     });
 </script>
