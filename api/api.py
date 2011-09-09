@@ -21,6 +21,18 @@ def json_wrap(func):
 class ChatStatsApi(object):
 
     @json_wrap
+    def list_speakers(self, chatroom, **kwargs):
+        db = mongo.get_db(chatroom)
+	about = db.about
+
+	doc = about.find_one({'_id' : 'speakers'})
+	if not doc:
+	    return {'list_speakers' : []}
+        else:
+	    return {'list_speakers' : doc['speakers']}
+	
+
+    @json_wrap
     def top_speakers(self, chatroom, **kwargs):
         db = mongo.get_db(chatroom)
 	about = db.about
@@ -36,6 +48,7 @@ class ChatStatsApi(object):
 	return {'top_speakers' : result}
 
     top_speakers.exposed = True
+    list_speakers.exposed = True
 
 
 def start():
