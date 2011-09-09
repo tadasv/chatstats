@@ -1,6 +1,8 @@
+#!/usr/bin/python
+
 import cherrypy
 import json
-
+import os.path
 
 def json_wrap(func):
     def _decorated(*args, **kwargs):
@@ -27,8 +29,8 @@ class Hooks(object):
 
 
 def start():
-    cherrypy.quickstart(Hooks())
-
+    conf = os.path.join(os.path.dirname(__file__), 'server.conf')
+    cherrypy.quickstart(Hooks(), config=conf)
 
 if __name__ == '__main__':
     start()
