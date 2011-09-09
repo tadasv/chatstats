@@ -13,7 +13,7 @@ def json_wrap(func):
 
 class Hooks(object):
 
-    def index(self, chatroom, speaker):
+    def index(self):
         return """
 <html> <head><title> Chat Stats Hooks </title></head>
 <body>
