@@ -72,9 +72,12 @@ $(function () {
      * end settings
      */
 
-    function getdata(graphtype){
+    function getdata(){
         //json retrieval
 
+        lines = [];
+        frequency = [];
+        words = [];
         $.ajax({
             url:  "http://ec2-184-72-144-233.compute-1.amazonaws.com/api/top_speakers/?chatroom=chatstats",
             //url: "data.json",
@@ -86,19 +89,15 @@ $(function () {
                 console.log(data.top_speakers);
                 for ( obj in data.top_speakers){
                     console.log(data.top_speakers[obj]);
+                    personData = data.top_speakers[obj];
+                    console.log(personData.frequency);
+                    words.push([{"label" : personData.speaker, "data" : personData.words}]);
+                    frequency.push([{"label" : personData.speaker, "data" : personData.frequency}]);
+                    lines.push([{"label" : personData.speaker, "data" : personData.lines}]);
 
                 }
-
-                /*
-                if(graphtype == "pie"){
-                    return sampledata.piedata;
-                }
-
-                if(graphtype == "bar"){
-                    return sampledata.bardata;
-                }
-                */
-
+                console.log(lines);
+                return( {"lines" : lines, "words" : words, "frequency" : frequency} )
 
             }
         });
@@ -106,8 +105,9 @@ $(function () {
     }
 
     function update(){
-        plot1.setdata(getdata("pie"));
-        plot2.setdata(getdata("bar"));
+        dataToUse = getdata();
+        plot1.setdata(dataToUse.lines);
+        plot2.setdata(dataToUse.words);
         //plot.setupgrid();
         plot1.draw()
         plot2.draw()
