@@ -24,25 +24,25 @@ class ChatStatsApi(object):
     @json_wrap
     def list_speakers(self, chatroom, **kwargs):
         db = mongo.get_db(chatroom)
-	about = db.about
+        about = db.about
 
-	doc = about.find_one({'_id' : 'speakers'})
-	if not doc:
-	    return {'list_speakers' : []}
+        doc = about.find_one({'_id' : 'speakers'})
+        if not doc:
+            return {'list_speakers' : []}
         else:
-	    return {'list_speakers' : doc['list']}
-	
+            return {'list_speakers' : doc['list']}
+
 
     @json_wrap
     def top_speakers(self, chatroom, **kwargs):
         db = mongo.get_db(chatroom)
-        docs = db.speakers.find(sort=('count', pymongo.DESCENDING), limit=15)
+        docs = db.speakers.find(limit=15).sort('count', pymongo.DESCENDING)
 
         result = []
         for d in docs:
             result.append({'speaker' : d['_id'], 'messages' : d['count'], 'words': d['words'], 'chars' : d['chars']})
 
-	return {'top_speakers' : result}
+        return {'top_speakers' : result}
 
     top_speakers.exposed = True
     list_speakers.exposed = True

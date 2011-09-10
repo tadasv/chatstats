@@ -11,7 +11,9 @@ def get_connection():
 
 def get_db(chatroom):
     conn = get_connection()
-    return conn[chatroom]
+    db = conn[chatroom]
+#    db.speakers.ensure_index('count')
+    return db
 
 
 def get_collection(db, username):
